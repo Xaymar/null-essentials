@@ -12,7 +12,7 @@ public class NullEssentials extends JavaPlugin {
     public static Server server = null;
     public static Configuration config = null;
     public static String prefixStd = "[NULL]";
-    public static String prefixMsg = "[NULL]";
+    public static String prefixMsg = "&6[NULL]";
     
     public static boolean enableSpout = false;
     public static boolean enableSlotManager = false;

@@ -38,7 +38,7 @@ public class messaging {
         return On.replaceAll("(&([A-Fa-f0-9]))", "\u00A7$2");
     }
     public static String parsePlayer(String On, Player plr) {
-        return messaging.substitude(On,
+        return colorize(messaging.substitude(On,
                 new String[] {
                     "+n,+name",
                     "+d,+displayname",
@@ -57,7 +57,7 @@ public class messaging {
                     String.valueOf(plr.getLocation().getX()),
                     String.valueOf(plr.getLocation().getY()),
                     String.valueOf(plr.getLocation().getZ())
-                });
+                }));
     }
     
     public static void broadcast(String msg) {

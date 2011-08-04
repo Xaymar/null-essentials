@@ -20,10 +20,13 @@ import org.bukkit.event.player.PlayerLoginEvent;
  * @author Xaymar
  */
 public class SlotManagerPlayerListener extends PlayerListener {
+    private static String prefixStd = NullEssentials.prefixStd+"[SM]";
+    private static String prefixMsg = NullEssentials.prefixMsg+"[SM]";
+    
     public void onEnable() {
         if (NullEssentials.enableSlotManager == true) {
             NullEssentials.server.getPluginManager().registerEvent(Type.PLAYER_LOGIN, (PlayerListener)this, Priority.Highest, NullEssentials.plugin);
-            NullEssentials.server.getPluginManager().registerEvent(Type.PLAYER_JOIN, (PlayerListener)this, Priority.Lowest, NullEssentials.plugin);
+            NullEssentials.server.getPluginManager().registerEvent(Type.PLAYER_JOIN, (PlayerListener)this, Priority.Highest, NullEssentials.plugin);
         }
     }
     
@@ -92,12 +95,19 @@ public class SlotManagerPlayerListener extends PlayerListener {
     }
 
     @Override
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerJoin(final PlayerJoinEvent event) {
         if (event.getPlayer().hasPermission("ne.slotmanager.message")) {
-            String strMessage = NullEssentials.config.getString("slotmanager.join."+event.getPlayer().getName()+".message", "");
-            if (!strMessage.equals("")) {
-                messaging.broadcast(strMessage); //messaging.parsePlayer(strMessage, event.getPlayer())
-            }
+            event.setJoinMessage("");
+            NullEssentials.server.getScheduler().scheduleSyncDelayedTask(NullEssentials.plugin, new Runnable() {
+                private final Player plr = event.getPlayer();
+                
+                public void run() {
+                        String strMessage = NullEssentials.config.getString("slotmanager.join."+plr.getName()+".message", "");
+                        if (!strMessage.equals("")) {
+                            messaging.broadcast(prefixMsg+messaging.parsePlayer(strMessage, plr));
+                        }
+                    }
+            });
         }
     }
 }
