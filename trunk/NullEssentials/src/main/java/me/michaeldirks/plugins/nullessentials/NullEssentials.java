@@ -1,5 +1,6 @@
 package me.michaeldirks.plugins.nullessentials;
 
+import com.avaje.ebean.EbeanServer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,8 +25,8 @@ public class NullEssentials extends JavaPlugin {
     public static Server server = null;
     public static Configuration config = null;
     public static Logger log = null;
-    public static String prefixStd = "[NULL]";
-    public static String prefixMsg = "&6[NULL]";
+    public static String prefixStd = "[NE]";
+    public static String prefixMsg = "&6[NE]";
     public static boolean enableSpout = false;
     public static boolean enableSlotManager = false;
     public static boolean firstRun = true;
@@ -99,7 +100,7 @@ public class NullEssentials extends JavaPlugin {
     
     //Command Handling
     public static boolean nullCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
-        String helpText = util.colorize(prefixMsg+"/ne (parts|slotmanager) <arguments...>");
+        String helpText = util.colorize(prefixMsg+"/"+alias+" (parts|slotmanager) <arguments...>");
         if (args.length == 0) { cs.sendMessage(helpText); } else {
             String[] newArgs = new String[args.length-1];
             for (int pos = 1; pos < args.length; pos++)
@@ -107,86 +108,105 @@ public class NullEssentials extends JavaPlugin {
             if (args[0].equalsIgnoreCase("parts")) {
                 return nullPartsCommand(cs,cmnd,alias,newArgs);
             } else if (args[0].equalsIgnoreCase("slotmanager")) {
-                return SlotManagerCommands.slotManagerCommand(cs,cmnd,alias,args);
+                return SlotManagerCommands.slotManagerCommand(cs,cmnd,alias,newArgs);
             } else { cs.sendMessage(helpText); }
         }
         return false;
     }
     
     private static boolean nullPartsCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
-        String helpText = util.colorize(prefixMsg+"/ne parts <enable|disable|reload> <arguments...>");
-        if (args.length == 0) {
-            String parts = prefixMsg+"Parts: ";
-            if (enableSlotManager == true)
-                parts += "&2";
-            else
-                parts += "&4";
-            parts += "Slot Manager"+"&6, ";
-            cs.sendMessage(util.colorize(parts));
-            return true;
-        } else {
-            String[] newArgs = new String[args.length-1];
-            for (int pos = 1; pos < args.length; pos++)
-                newArgs[pos-1] = args[pos];
-            if (args[0].equalsIgnoreCase("enable")) {
-                return nullPartsEnableCommand(cs,cmnd,alias,newArgs);
-            } else if (args[0].equalsIgnoreCase("disable")) {
-                return nullPartsDisableCommand(cs,cmnd,alias,newArgs);
-            } else if (args[0].equalsIgnoreCase("reload")) {
-                return nullPartsReloadCommand(cs,cmnd,alias,newArgs);
+        String helpText = util.colorize(prefixMsg+"/"+alias+" parts <enable|disable|reload> <arguments...>");
+        String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
+        if (cs.hasPermission("ne.parts")) {
+            if (args.length == 0) {
+                String parts = prefixMsg+"Parts: ";
+                if (enableSlotManager == true)
+                    parts += "&2";
+                else
+                    parts += "&4";
+                parts += "Slot Manager"+"&6, ";
+                cs.sendMessage(util.colorize(parts));
+                return true;
             } else {
-                cs.sendMessage(helpText);
+                String[] newArgs = new String[args.length-1];
+                for (int pos = 1; pos < args.length; pos++)
+                    newArgs[pos-1] = args[pos];
+                if (args[0].equalsIgnoreCase("enable")) {
+                    return nullPartsEnableCommand(cs,cmnd,alias,newArgs);
+                } else if (args[0].equalsIgnoreCase("disable")) {
+                    return nullPartsDisableCommand(cs,cmnd,alias,newArgs);
+                } else if (args[0].equalsIgnoreCase("reload")) {
+                    return nullPartsReloadCommand(cs,cmnd,alias,newArgs);
+                } else {
+                    cs.sendMessage(helpText);
+                }
             }
-        }
+        } else { cs.sendMessage(permText); }
         return false;
     }
     
     private static boolean nullPartsEnableCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
-        String helpText = util.colorize(prefixMsg+"/ne parts enable (part)");
-        if (args.length == 0) { cs.sendMessage(helpText); } else {
-            if (args[0].equalsIgnoreCase("slotmanager")) {
-                if (enableSlotManager == false) {
-                    enableSlotManager = true;
-                    partsSlotManager_PlayerListener.onEnable();
-                    partsSlotManager_SpoutListener.onEnable();
-                }
-                cs.sendMessage(util.colorize(prefixMsg+"Slot Manager enabled."));
-                return true;
-            } else { cs.sendMessage(helpText); }
-        }
+        String helpText = util.colorize(prefixMsg+"/"+alias+" parts enable (part)");
+        String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
+        if (cs.hasPermission("ne.parts.enable")) {
+            if (args.length == 0) { cs.sendMessage(helpText); } else {
+                if (args[0].equalsIgnoreCase("slotmanager")) {
+                    if (cs.hasPermission("ne.slotmanager.state")) {
+                        if (enableSlotManager == false) {
+                            enableSlotManager = true;
+                            partsSlotManager_PlayerListener.onEnable();
+                            partsSlotManager_SpoutListener.onEnable();
+                        }
+                        cs.sendMessage(util.colorize(prefixMsg+"Slot Manager enabled."));
+                        return true;
+                    } else {
+                        cs.sendMessage(permText);
+                    }
+                } else { cs.sendMessage(helpText); }
+            }
+        } else { cs.sendMessage(permText); }
         return false;
     }
 
     private static boolean nullPartsDisableCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
-        String helpText = util.colorize(prefixMsg+"/ne parts disable (part)");
-        if (args.length == 0) { cs.sendMessage(helpText); } else {
-            if (args[0].equalsIgnoreCase("slotmanager")) {
-                if (enableSlotManager) {
-                    partsSlotManager_PlayerListener.onDisable();
-                    partsSlotManager_SpoutListener.onDisable();
-                    enableSlotManager = false;
-                }
-                cs.sendMessage(util.colorize(prefixMsg+"Slot Manager disabled."));
-                return true;
-            } else { cs.sendMessage(helpText); }
-        }
+        String helpText = util.colorize(prefixMsg+"/"+alias+" parts disable (part)");
+        String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
+        if (cs.hasPermission("ne.parts.disable")) {
+            if (args.length == 0) { cs.sendMessage(helpText); } else {
+                if (args[0].equalsIgnoreCase("slotmanager")) {
+                    if (cs.hasPermission("ne.slotmanager.state")) {
+                        if (enableSlotManager) {
+                            partsSlotManager_PlayerListener.onDisable();
+                            partsSlotManager_SpoutListener.onDisable();
+                            enableSlotManager = false;
+                        }
+                        cs.sendMessage(util.colorize(prefixMsg+"Slot Manager disabled."));
+                        return true;
+                    } else { cs.sendMessage(permText); }
+                } else { cs.sendMessage(helpText); }
+            }
+        } else { cs.sendMessage(permText); }
         return false;
     }
 
     private static boolean nullPartsReloadCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
-        cs.sendMessage(util.colorize(prefixMsg+"Disabling parts..."));
-        if (enableSlotManager) {
-            partsSlotManager_PlayerListener.onDisable();
-            partsSlotManager_SpoutListener.onDisable();
-        }
-        cs.sendMessage(util.colorize(prefixMsg+"Reloading configuration..."));
-        config.load();
-        cs.sendMessage(util.colorize(prefixMsg+"Enabling parts..."));
-        if (enableSlotManager) {
-            partsSlotManager_PlayerListener.onEnable();
-            partsSlotManager_SpoutListener.onEnable();
-        }
-        cs.sendMessage(util.colorize(prefixMsg+"Done!"));
-        return true;
+        String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
+        if (cs.hasPermission("ne.parts.reload")) {
+            cs.sendMessage(util.colorize(prefixMsg+"Disabling parts..."));
+            if (enableSlotManager) {
+                partsSlotManager_PlayerListener.onDisable();
+                partsSlotManager_SpoutListener.onDisable();
+            }
+            cs.sendMessage(util.colorize(prefixMsg+"Reloading configuration..."));
+            config.load();
+            cs.sendMessage(util.colorize(prefixMsg+"Enabling parts..."));
+            if (enableSlotManager) {
+                partsSlotManager_PlayerListener.onEnable();
+                partsSlotManager_SpoutListener.onEnable();
+            }
+            cs.sendMessage(util.colorize(prefixMsg+"Done!"));
+            return true;
+        } else { cs.sendMessage(permText); }
+        return false;
     }
 }
