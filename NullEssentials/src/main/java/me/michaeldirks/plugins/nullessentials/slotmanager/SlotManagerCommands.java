@@ -46,9 +46,7 @@ public class SlotManagerCommands {
                 if (args[0].equalsIgnoreCase("sound")) {
                     return slotManagerGetSoundCommand(cs,cmnd,alias,newArgs);
                 } else if (args[0].equalsIgnoreCase("message")) {
-                    /*if (cs.hasPermission("ne.slotmanager.get.message.own") || cs.hasPermission("ne.slotmanager.get.message.other")) {
-                        return slotManagerGetMessageCommand(cs,cmnd,alias,newArgs);
-                    } else { cs.sendMessage(permText); }*/
+                    return slotManagerGetMessageCommand(cs,cmnd,alias,newArgs);
                 } else { cs.sendMessage(helpText); }
             }
         } else { cs.sendMessage(permText); }
