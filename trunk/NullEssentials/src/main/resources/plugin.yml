@@ -6,18 +6,19 @@ name: NullEssentials
 startup: postworld
 depend: [Spout]
 url: http://levelnull.de/
-version: '0.2'
+version: '0.3'
 permissions:
-  ne.slotmanager:
-    default: op
-    description: uh...
   ne.slotmanager.reserved:
     default: op
-    description: Allows user to use reserved slots.
+    description: Allows the user to use reserved slots and kick users using reserved slots.
   ne.slotmanager.sound:
     default: op
-    description: Allows user to use custom joinsound.
+    description: Allows the user to play a Joinsound after joining.
   ne.slotmanager.message:
     default: op
-    description: Allows user to use custom joinmessage.
+    description: Allows the user to replace the default join notification with a custom Joinmessage.
 commands:
+  null:
+    description: Control Null Essentials through Commands
+    usage: /<command> <args>
+    alias: [ne]

@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
  *
  * @author Xaymar
  */
-public class messaging {
+public class util {
     public static String substitude(String On, String[] What, String[] With) {
         if (What.length != With.length) {
             throw new java.lang.ArrayIndexOutOfBoundsException();
@@ -33,12 +33,11 @@ public class messaging {
         return On;
     }
     
-    //Reachable
     public static String colorize(String On) {
         return On.replaceAll("(&([A-Fa-f0-9]))", "\u00A7$2");
     }
     public static String parsePlayer(String On, Player plr) {
-        return colorize(messaging.substitude(On,
+        return colorize(util.substitude(On,
                 new String[] {
                     "+n,+name",
                     "+d,+displayname",
@@ -61,10 +60,10 @@ public class messaging {
     }
     
     public static void broadcast(String msg) {
-        messaging.broadcast(msg,NullEssentials.server,new Player[] {});
+        util.broadcast(msg,NullEssentials.server,new Player[] {});
     }
     public static void broadcast(String msg, Server srv) {
-        messaging.broadcast(msg,srv,new Player[] {});
+        util.broadcast(msg,srv,new Player[] {});
     }
     public static void broadcast(String msg, Server srv, Player[] but) {
         for(Player plr : srv.getOnlinePlayers()) {
@@ -75,5 +74,22 @@ public class messaging {
             }
             plr.sendMessage(msg);
         }
+    }
+
+    public static Player findPlayerName(String name) {
+        for (Player plr : NullEssentials.server.getOnlinePlayers()) {
+            if (plr.getName().contains(name)) {
+                return plr;
+            }
+        }
+        return null;
+    }
+    public static Player findPlayerDisplayName(String name) {
+        for (Player plr : NullEssentials.server.getOnlinePlayers()) {
+            if (plr.getDisplayName().contains(name)) {
+                return plr;
+            }
+        }
+        return null;
     }
 }

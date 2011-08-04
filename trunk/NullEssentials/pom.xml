@@ -55,7 +55,7 @@
     </dependencies>
     <artifactId>NullEssentials</artifactId>
     <name>Null Essentials</name>
-    <version>0.2</version>
+    <version>0.3</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
