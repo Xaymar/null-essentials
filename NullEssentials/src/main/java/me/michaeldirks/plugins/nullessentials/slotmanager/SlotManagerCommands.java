@@ -5,10 +5,8 @@
 package me.michaeldirks.plugins.nullessentials.slotmanager;
 
 import me.michaeldirks.plugins.nullessentials.NullEssentials;
-import me.michaeldirks.plugins.nullessentials.util.util;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 /**
  *

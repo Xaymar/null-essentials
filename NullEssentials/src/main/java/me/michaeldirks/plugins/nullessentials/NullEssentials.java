@@ -86,14 +86,12 @@ public class NullEssentials extends JavaPlugin {
         }
         
         //Enable command using
-        System.out.println("pre-getCommand");
-        getCommand("null").setExecutor(new CommandExecutor() {
+        getCommand("ne").setExecutor(new CommandExecutor() {
             @Override
             public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
                 return NullEssentials.nullCommand(cs,cmnd,string,strings);
             }
         });
-        System.out.println("post-getCommand");
         
         log.log(Level.INFO, prefixStd+this+" is now enabled!");
         firstRun = false;
@@ -101,7 +99,7 @@ public class NullEssentials extends JavaPlugin {
     
     //Command Handling
     public static boolean nullCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
-        String helpText = util.colorize(prefixMsg+"/null (parts|slotmanager) <arguments...>");
+        String helpText = util.colorize(prefixMsg+"/ne (parts|slotmanager) <arguments...>");
         if (args.length == 0) { cs.sendMessage(helpText); } else {
             String[] newArgs = new String[args.length-1];
             for (int pos = 1; pos < args.length; pos++)
@@ -116,7 +114,7 @@ public class NullEssentials extends JavaPlugin {
     }
     
     private static boolean nullPartsCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
-        String helpText = util.colorize(prefixMsg+"/null parts <enable|disable|reload> <arguments...>");
+        String helpText = util.colorize(prefixMsg+"/ne parts <enable|disable|reload> <arguments...>");
         if (args.length == 0) {
             String parts = prefixMsg+"Parts: ";
             if (enableSlotManager == true)
@@ -144,7 +142,7 @@ public class NullEssentials extends JavaPlugin {
     }
     
     private static boolean nullPartsEnableCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
-        String helpText = util.colorize(prefixMsg+"/null parts enable (part)");
+        String helpText = util.colorize(prefixMsg+"/ne parts enable (part)");
         if (args.length == 0) { cs.sendMessage(helpText); } else {
             if (args[0].equalsIgnoreCase("slotmanager")) {
                 if (enableSlotManager == false) {
@@ -160,7 +158,7 @@ public class NullEssentials extends JavaPlugin {
     }
 
     private static boolean nullPartsDisableCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
-        String helpText = util.colorize(prefixMsg+"/null parts disable (part)");
+        String helpText = util.colorize(prefixMsg+"/ne parts disable (part)");
         if (args.length == 0) { cs.sendMessage(helpText); } else {
             if (args[0].equalsIgnoreCase("slotmanager")) {
                 if (enableSlotManager) {
