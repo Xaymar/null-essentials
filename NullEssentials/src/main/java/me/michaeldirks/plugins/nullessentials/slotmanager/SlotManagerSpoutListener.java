@@ -16,6 +16,9 @@ import org.getspout.spoutapi.event.spout.SpoutListener;
  * @author Xaymar
  */
 public class SlotManagerSpoutListener extends SpoutListener {
+    private static String prefixStd = NullEssentials.prefixStd+"[SM]";
+    private static String prefixMsg = NullEssentials.prefixMsg+"[SM]";
+    
     public void onEnable() {
         if (NullEssentials.enableSlotManager == true) {
             NullEssentials.server.getPluginManager().registerEvent(Type.CUSTOM_EVENT, (SpoutListener)this, Priority.Highest, NullEssentials.plugin);
