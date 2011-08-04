@@ -1,8 +1,8 @@
 #summary Learn how to install and setup NullEssentials
 #labels Featured,Phase-Deploy
+#sidebar TableOfContents
 
 = Installing Null Essentials on a Server =
-#sidebar TableOfContents
 
 == Prerequisites ==
 NullEssentials requires the following things to work:
