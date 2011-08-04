@@ -36,13 +36,20 @@ slotmanager:
 }}}
 The config.yml is actually pretty self-descriptive but here's a walk-through to each Item:
   * parts - Group for Null Essentials, disable and enable each part of NullEssentials
-  *  * (bool)slotmanager - Should Null Essentials enable Slot Manager?
+  *  # (bool)slotmanager - Should Null Essentials enable Slot Manager?
   * slotmanager - Group for Slot Manager
-  *  * reserved - Group for Reserved Slots
-  *  *  * count - How many Slots should be reserved(-1 for all avaible, disables allowplayers)
-  *  *  * allowplayers - Allow players without ne.slotmanager.reserved to join reserved slots?
-  *  * join - Group for custom Joinmessage and -sound
-  *  *  * (Username) - Who should have them? (This does not enable them)
-  *  *  *  * message - Text to display after the user joined (leave empty to keep standard)
-  *  *  *  * sound - URL to a sound file to play after the user joined (leave empty to disable)
-This is all you have to do to install Null Essentials, If you have Permissions or SuperPermissions set up, read 
+  *  # reserved - Group for Reserved Slots
+  *  #  * count - How many Slots should be reserved(-1 for all avaible, disables allowplayers)
+  *  #  * allowplayers - Allow players without ne.slotmanager.reserved to join reserved slots?
+  *  # join - Group for custom Joinmessage and -sound
+  *  #  * (Username) - Who should have them? (This does not enable them)
+  *  #  *  # message - Text to display after the user joined (leave empty to keep standard)
+  *  #  *  # sound - URL to a sound file to play after the user joined (leave empty to disable)
+This is all you have to do to install Null Essentials, If you have Permissions or SuperPermissions set up, read [InstallationAndSetup#Permissions Permissions]
+
+== Permissions ==
+All permissions are divided into parts that handle most events themselves.
+||Part||Node||Description||
+||Slot Manager||ne.slotmanager.reserved||Allows the user to use reserved slots and kick users using reserved slots.||
+||Slot Manager||ne.slotmanager.sound||Allows the user to play a Joinsound after joining.||
+||Slot Manager||ne.slotmanager.message||Allows the user to replace the default join notification with a custom Joinmessage.||
