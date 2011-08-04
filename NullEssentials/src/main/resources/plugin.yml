@@ -8,6 +8,71 @@ depend: [Spout]
 url: http://levelnull.de/
 version: '0.3'
 permissions:
+  ne.*:
+    default: op
+    description: Grants all Null Essentials nodes
+    children: 
+      ne.parts: true
+      ne.parts.*: true
+      ne.slotmanager.*: true
+  ne.slotmanager.*:
+    default: op
+    description: Grants all slotmanager part nodes
+    children: 
+      ne.slotmanager.state: true
+      ne.slotmanager.reserved: true
+      ne.slotmanager.sound: true
+      ne.slotmanager.message: true
+      ne.slotmanager.set.*: true
+      ne.slotmanager.get.*: true
+  ne.slotmanager.set.*:
+    default: op
+    description: Grants all ne.slotmanager.set permissions
+    children: 
+      ne.slotmanager.set.sound.*: true
+      ne.slotmanager.set.message.*: true
+  ne.slotmanager.get.*:
+    default: op
+    description: Grants all ne.slotmanager.set permissions
+    children: 
+      ne.slotmanager.set.sound.*: true
+      ne.slotmanager.set.message.*: true
+  ne.slotmanager.set.sound.*:
+    default: op
+    description: Grants all ne.slotmanager.set.sound permissions
+    children: 
+       ne.slotmanager.set.sound.own: true
+       ne.slotmanager.set.sound.other: true
+  ne.slotmanager.set.message.*:
+    default: op
+    description: Grants all ne.slotmanager.set.message permissions
+    children: 
+      ne.slotmanager.set.message.own: true
+      ne.slotmanager.set.message.other: true
+  ne.slotmanager.get.sound.*:
+    default: op
+    description: Grants all ne.slotmanager.set.sound permissions
+    children: 
+      ne.slotmanager.get.sound.own: true
+      ne.slotmanager.get.sound.other: true
+  ne.slotmanager.get.message.*:
+    default: op
+    description: Grants all ne.slotmanager.set.message permissions
+    children: 
+      ne.slotmanager.get.message.own: true
+      ne.slotmanager.get.message.other: true
+  ne.parts:
+    default: op
+    description: /ne parts
+  ne.parts.state:
+    default: op
+    description: /ne parts enable/disable
+  ne.parts.reload:
+    default: op
+    description: /ne parts reload
+  ne.slotmanager.state:
+    default: op
+    description: /ne parts enable/disable slotmanager
   ne.slotmanager.reserved:
     default: op
     description: Allows the user to use reserved slots and kick users using reserved slots.
@@ -17,8 +82,31 @@ permissions:
   ne.slotmanager.message:
     default: op
     description: Allows the user to replace the default join notification with a custom Joinmessage.
+  ne.slotmanager.set.sound.own:
+    default: op
+    description: Allows the user to set his own Joinsound by using /ne slotmanager set sound <url>
+  ne.slotmanager.set.sound.other:
+    default: op
+    description: Allows the user to set other users Joinsound by using /ne slotmanager set sound <url>
+  ne.slotmanager.set.message.own:
+    default: op
+    description: Allows the user to set his own Joinmessage by using /ne slotmanager set sound <url>
+  ne.slotmanager.set.message.other:
+    default: op
+    description: Allows the user to set other users Joinmessage by using /ne slotmanager set sound <url>
+  ne.slotmanager.get.sound.own:
+    default: op
+    description: Allows the user to view his own Joinsound by using /ne slotmanager get sound
+  ne.slotmanager.get.sound.other:
+    default: op
+    description: Allows the user to view other users Joinsound by using /ne slotmanager get sound
+  ne.slotmanager.get.message.own:
+    default: op
+    description: Allows the user to view his own Joinmessage by using /ne slotmanager get message
+  ne.slotmanager.get.message.other:
+    default: op
+    description: Allows the user to view other users Joinmessage by using /ne slotmanager get message
 commands:
   ne:
     description: Control Null Essentials through Commands
-    usage: /<command> <args>
     alias: []
