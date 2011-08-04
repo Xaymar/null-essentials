@@ -18,7 +18,7 @@ permissions:
     default: op
     description: Allows the user to replace the default join notification with a custom Joinmessage.
 commands:
-  null:
+  ne:
     description: Control Null Essentials through Commands
     usage: /<command> <args>
-    alias: [ne]
+    alias: []
