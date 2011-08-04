@@ -1,0 +1,23 @@
+author: Michael Dirks
+database: true
+description: "Provides an all-in-one approach for server hosters. Easy setup and management!"
+main: me.michaeldirks.plugins.nullessentials.NullEssentials
+name: NullEssentials
+startup: postworld
+depend: [Spout]
+url: http://levelnull.de/
+version: '0.1.1'
+permissions:
+  ne.slotmanager:
+    default: op
+    description: uh...
+  ne.slotmanager.reserved:
+    default: op
+    description: Allows user to use reserved slots.
+  ne.slotmanager.sound:
+    default: op
+    description: Allows user to use custom joinsound.
+  ne.slotmanager.message:
+    default: op
+    description: Allows user to use custom joinmessage.
+commands:
