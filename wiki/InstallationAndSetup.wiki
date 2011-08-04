@@ -6,9 +6,9 @@
 
 == Prerequisites ==
 NullEssentials requires the following things to work:
-* CraftBukkit 1000 or higher
-* Spout 1.0.1 or higher (not necessarily needed)
-* A Text Editor to edit config.yml
+  * CraftBukkit 1000 or higher
+  * Spout 1.0.1 or higher (not necessarily needed)
+  * A Text Editor to edit config.yml
 
 == Installation ==
 First download NullEssentials from the [http://code.google.com/p/null-essentials/downloads/list Downloads page] and put it in /plugins/ of your bukkit installation.
