@@ -6,6 +6,7 @@ package me.michaeldirks.plugins.nullessentials.slotmanager;
 
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.logging.Level;
 import me.michaeldirks.plugins.nullessentials.NullEssentials;
 import me.michaeldirks.plugins.nullessentials.util.messaging;
 import org.bukkit.entity.Player;
@@ -27,6 +28,7 @@ public class SlotManagerPlayerListener extends PlayerListener {
         if (NullEssentials.enableSlotManager == true) {
             NullEssentials.server.getPluginManager().registerEvent(Type.PLAYER_LOGIN, (PlayerListener)this, Priority.Highest, NullEssentials.plugin);
             NullEssentials.server.getPluginManager().registerEvent(Type.PLAYER_JOIN, (PlayerListener)this, Priority.Highest, NullEssentials.plugin);
+            NullEssentials.log.log(Level.INFO, prefixStd+"Slot Manager(PlayerListener) enabled.");
         }
     }
     
@@ -43,8 +45,7 @@ public class SlotManagerPlayerListener extends PlayerListener {
         if (NullEssentials.config.getBoolean("slotmanager.reserved.allowplayers", true) == false) {
             int usedFreeSlots = 0;
             int totalFreeSlots = NullEssentials.server.getMaxPlayers()-NullEssentials.config.getInt("slots.reserved.count", 0);
-            for (int i = 0;i < NullEssentials.server.getMaxPlayers();i++) {
-                Player player = NullEssentials.server.getOnlinePlayers()[i];
+            for (Player player : NullEssentials.server.getOnlinePlayers()) {
                 if ((!player.hasPermission("ne.slotmanager.reserved")) && (player != event.getPlayer())) {
                     usedFreeSlots++;
                 }
@@ -61,8 +62,7 @@ public class SlotManagerPlayerListener extends PlayerListener {
             if (event.getPlayer().hasPermission("ne.slotmanager.reserved")) {
                 int usedReservedSlots = 0;
                 int totalReservedSlots = NullEssentials.config.getInt("slotmanager.reserved.count", 0);
-                for (int i = 0;i < NullEssentials.server.getMaxPlayers();i++) {
-                    Player player = NullEssentials.server.getOnlinePlayers()[i];
+                for (Player player : NullEssentials.server.getOnlinePlayers()) {
                     if ((player.hasPermission("ne.slotmanager.reserved")) && (player != event.getPlayer())) {
                         usedReservedSlots++;
                     }
@@ -71,10 +71,9 @@ public class SlotManagerPlayerListener extends PlayerListener {
                     event.setResult(PlayerLoginEvent.Result.KICK_FULL);
                     event.setKickMessage("No reserved slots left!");
                 } else {
-                    LinkedList<Player> kickList = new LinkedList<Player>();
+                    LinkedList<Player> kickList = new LinkedList<>();
                     Random randomGen = new Random( System.currentTimeMillis() );
-                    for (int i = 0;i < NullEssentials.server.getMaxPlayers();i++) {
-                        Player player = NullEssentials.server.getOnlinePlayers()[i];
+                    for (Player player : NullEssentials.server.getOnlinePlayers()) {
                         if ((!player.hasPermission("ne.slotmanager.reserved")) && (player != event.getPlayer())) {
                             kickList.add(player);
                         }
@@ -82,13 +81,14 @@ public class SlotManagerPlayerListener extends PlayerListener {
                     Player toKick = kickList.get(randomGen.nextInt(kickList.size()));
                     if (toKick != null) {
                         toKick.kickPlayer("Kicked by reserved slot user.");
+                        event.setResult(PlayerLoginEvent.Result.ALLOWED);
                     } else {
                         event.setResult(PlayerLoginEvent.Result.KICK_FULL);
                         event.setKickMessage("No reserved slots left!");
                     }
                 }
             } else {
-                event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+                event.setResult(PlayerLoginEvent.Result.KICK_FULL);
                 event.setKickMessage("You do not have access to reserved slots.");
             }
         }

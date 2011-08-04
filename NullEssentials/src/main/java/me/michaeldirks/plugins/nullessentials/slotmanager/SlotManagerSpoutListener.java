@@ -4,6 +4,7 @@
  */
 package me.michaeldirks.plugins.nullessentials.slotmanager;
 
+import java.util.logging.Level;
 import me.michaeldirks.plugins.nullessentials.NullEssentials;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
@@ -22,6 +23,7 @@ public class SlotManagerSpoutListener extends SpoutListener {
     public void onEnable() {
         if (NullEssentials.enableSlotManager == true) {
             NullEssentials.server.getPluginManager().registerEvent(Type.CUSTOM_EVENT, (SpoutListener)this, Priority.Highest, NullEssentials.plugin);
+            NullEssentials.log.log(Level.INFO, prefixStd+"Slot Manager(SpoutListener) enabled.");
         }
     }
     
