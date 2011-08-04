@@ -1,0 +1,36 @@
+#summary Learn how to install and setup NullEssentials
+#labels Phase-Deploy
+
+= Installing NullEssentials on a Server =
+
+== Prerequisites ==
+NullEssentials requires the following things to work:
+* CraftBukkit 1000 or higher
+* Spout 1.0.1 or higher (not necessarily needed)
+* A Text Editor to edit config.yml
+
+== Installation ==
+First download NullEssentials from the [http://code.google.com/p/null-essentials/downloads/list Downloads page] and put it in /plugins/ of your bukkit installation.
+Run the server with the plugin once to generate the config.yml it should use. Close the server again and open up the config.yml, you should see this(taken from 0.2):
+{{{
+parts:
+  #Should Slot Manager be enabled?(Reserved Slots, Joinmessage and -sound)
+  slotmanager: true 
+
+#Slot Manager Configuration
+slotmanager:
+  reserved:
+    #How many slots should be reserved? (-1 equals all without the allowplayers limitation)
+    count: -1
+    #Should we allow normal players to join reserved slots?
+    allowplayers: true
+  join:
+    #Template for customized Joinmessage and -sound:
+    #Username:
+    #  message: TextToDisplay
+    #  sound: UrlToSound
+    #When filled it looks along the lines of this:
+    #Xaymar:
+    #  message: 'This is a text.'
+    #  sound: http://example.com/404.ogg
+}}}
