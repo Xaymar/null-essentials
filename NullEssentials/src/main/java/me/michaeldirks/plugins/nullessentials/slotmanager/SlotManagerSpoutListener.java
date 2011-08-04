@@ -21,14 +21,14 @@ public class SlotManagerSpoutListener extends SpoutListener {
     private static String prefixMsg = NullEssentials.prefixMsg+"[SM]";
     
     public void onEnable() {
-        if (NullEssentials.enableSlotManager == true) {
+        if ((NullEssentials.enableSlotManager == true) && (NullEssentials.firstRun == true)) {
             NullEssentials.server.getPluginManager().registerEvent(Type.CUSTOM_EVENT, (SpoutListener)this, Priority.Highest, NullEssentials.plugin);
             NullEssentials.log.log(Level.INFO, prefixStd+"Slot Manager(SpoutListener) enabled.");
         }
     }
     
     public void onDisable() {
-        if (NullEssentials.enableSlotManager == true) {
+        if ((NullEssentials.enableSlotManager == true) && (NullEssentials.lastRun == true)) {
             
         }
     }

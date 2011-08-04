@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.logging.Level;
 import me.michaeldirks.plugins.nullessentials.NullEssentials;
-import me.michaeldirks.plugins.nullessentials.util.messaging;
+import me.michaeldirks.plugins.nullessentials.util.util;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
@@ -25,7 +25,7 @@ public class SlotManagerPlayerListener extends PlayerListener {
     private static String prefixMsg = NullEssentials.prefixMsg+"[SM]";
     
     public void onEnable() {
-        if (NullEssentials.enableSlotManager == true) {
+        if ((NullEssentials.enableSlotManager == true) && (NullEssentials.firstRun == true)) {
             NullEssentials.server.getPluginManager().registerEvent(Type.PLAYER_LOGIN, (PlayerListener)this, Priority.Highest, NullEssentials.plugin);
             NullEssentials.server.getPluginManager().registerEvent(Type.PLAYER_JOIN, (PlayerListener)this, Priority.Highest, NullEssentials.plugin);
             NullEssentials.log.log(Level.INFO, prefixStd+"Slot Manager(PlayerListener) enabled.");
@@ -33,7 +33,7 @@ public class SlotManagerPlayerListener extends PlayerListener {
     }
     
     public void onDisable() {
-        if (NullEssentials.enableSlotManager == true) {
+        if ((NullEssentials.enableSlotManager == true) && (NullEssentials.lastRun == true)) {
             
         }
     }
@@ -104,7 +104,7 @@ public class SlotManagerPlayerListener extends PlayerListener {
                 public void run() {
                         String strMessage = NullEssentials.config.getString("slotmanager.join."+plr.getName()+".message", "");
                         if (!strMessage.equals("")) {
-                            messaging.broadcast(prefixMsg+messaging.parsePlayer(strMessage, plr));
+                            util.broadcast(prefixMsg+util.parsePlayer(strMessage, plr));
                         }
                     }
             });
