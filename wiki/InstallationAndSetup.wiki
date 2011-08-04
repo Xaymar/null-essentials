@@ -36,30 +36,30 @@ slotmanager:
 }}}
 The config.yml is actually pretty self-descriptive but here's a walk-through to each Item:
 <ul>
-  <li>parts - Group for Null Essentials, disable and enable each part of NullEssentials
-    <ul>
-      <li>slotmanager - Should Null Essentials enable Slot Manager?</li>
-    </ul>
-  </li>
-  <li>slotmanager - Group for Slot Manager
-    <ul>
-      <li>reserved - Group for Reserved Slots
-        <ul>
-          <li>count - How many Slots should be reserved(-1 for all avaible, disables allowplayers)</li>
-          <li>allowplayers - Allow players without ne.slotmanager.reserved to join reserved slots?</li>
-        </ul>
-      </li>
-      <li>join - Group for custom Joinmessage and -sound
-        <ul>
-          <li>(Username) - Who should have them? (This does not enable them)</li>
-          <ul>
-            <li>message - Text to display after the user joined (leave empty to keep standard)</li>
-            <li>sound - URL to a sound file to play after the user joined (leave empty to disable)</li>
-          </ul>
-        </ul>
-      </li>
-    </ul>
-  </li>
+<li>parts - Group for Null Essentials, disable and enable each part of NullEssentials
+<ul>
+<li>slotmanager - Should Null Essentials enable Slot Manager?</li>
+</ul>
+</li>
+<li>slotmanager - Group for Slot Manager
+<ul>
+<li>reserved - Group for Reserved Slots
+<ul>
+<li>count - How many Slots should be reserved(-1 for all avaible, disables allowplayers)</li>
+<li>allowplayers - Allow players without ne.slotmanager.reserved to join reserved slots?</li>
+</ul>
+</li>
+<li>join - Group for custom Joinmessage and -sound
+<ul>
+<li>(Username) - Who should have them? (This does not enable them)</li>
+<ul>
+<li>message - Text to display after the user joined (leave empty to keep standard)</li>
+<li>sound - URL to a sound file to play after the user joined (leave empty to disable)</li>
+</ul>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 This is all you have to do to install Null Essentials, If you have Permissions or SuperPermissions set up, read [InstallationAndSetup#Permissions Permissions]
 
