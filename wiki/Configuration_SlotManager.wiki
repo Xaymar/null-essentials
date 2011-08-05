@@ -1,0 +1,57 @@
+#summary Configuring Slot Manager and it's Permissions
+#labels Phase-Deploy,Phase-Design
+
+<wiki:toc max_depth="3" />
+
+= Slot Manager =
+Slot Manager is a part of Null Essentials that allows your Server to have reserved Slots, custom Joinmessages and custom Joinsounds.
+
+== Configuration ==
+Lets take a look at config.yml from Null Essentials:
+{{{
+parts:
+  #Should Slot Manager be enabled?(Reserved Slots, Joinmessage and -sound)
+  slotmanager: true 
+
+#Slot Manager Configuration
+slotmanager:
+  reserved:
+    #How many slots should be reserved? (-1 equals all without the allowplayers limitation)
+    count: -1
+    #Should we allow normal players to join reserved slots?
+    allowplayers: true
+  join:
+    #Template for customized Joinmessage and -sound:
+    #Username:
+    #  message: TextToDisplay
+    #  sound: UrlToSound
+}}}
+As you can see, there is a node called slotmanager. This is where all slotmanager(except enabled/disabled state) are set. There are two subgroups right now, reserved and join. Let's take a closer look at them.
+
+=== reserved ===
+These are the settings for, who could have guessed, reserved slots. _count_ affects the amount of reserved slots to 'allocate' for this server. Allowed values are -1(all, but ignore allowplayers) and 0-MaxPlayers.
+_allowplayers_ affects the behaviour of the onPlayerLogin Event. A value of _true_ will allow client without the ne.slotmanager.reserved permission to join reserved slots, while a value of _false_ will disallow clients to join reserved slots.
+
+=== join ===
+This affects the message and sound for specific clients that join. The syntax is like this:
+{{{
+<Username>:
+  [message: 'text']
+  [sound: 'url']
+}}}
+The fields message and sound can be omitted or left empty, in that case the player _Username_ will not have the one that is missing.
+
+== Permissions ==
+|| Node || For || Parents ||
+|| ne.slotmanager.state || /ne parts <enable|disable> slotmanager || ne.slotmanager.*, ne.* ||
+|| ne.slotmanager.reserved || Access to reserved slots || ne.slotmanager.*, ne.* ||
+|| ne.slotmanager.sound || Allow user to have a custom join message || ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.message || Allow user to have a custom join sound || ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.set.sound.own || /ne slotmanager set sound <url> || ne.slotmanager.set.sound.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.set.sound.other || /ne slotmanager set sound <player> <url> || ne.slotmanager.set.sound.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.get.sound.own || /ne slotmanager get sound || ne.slotmanager.get.sound.`*`, ne.slotmanager.get.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.get.sound.other || /ne slotmanager get sound <player>|| ne.slotmanager.get.sound.`*`, ne.slotmanager.get.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.set.message.own || /ne slotmanager set message <text> || ne.slotmanager.set.message.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.set.message.other || /ne slotmanager set message <player> <text> || ne.slotmanager.set.message.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.get.message.own || /ne slotmanager get message || ne.slotmanager.get.message.`*`, ne.slotmanager.get.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.get.message.other || /ne slotmanager get message <player>|| ne.slotmanager.get.message.`*`, ne.slotmanager.get.`*`, ne.slotmanager.`*`, ne.`*` ||
