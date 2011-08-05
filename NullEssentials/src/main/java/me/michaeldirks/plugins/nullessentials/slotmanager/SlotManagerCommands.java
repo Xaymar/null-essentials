@@ -26,7 +26,7 @@ public class SlotManagerCommands {
             for (int pos = 1; pos < args.length; pos++)
                 newArgs[pos-1] = args[pos];
             if (args[0].equalsIgnoreCase("set")) {
-                //return slotManagerSetCommand(cs,cmnd,alias,newArgs);
+                return slotManagerSetCommand(cs,cmnd,alias,newArgs);
             } else if (args[0].equalsIgnoreCase("get")) {
                 return slotManagerGetCommand(cs,cmnd,alias,newArgs);
             } else { cs.sendMessage(helpText); }
@@ -130,5 +130,109 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
+    
+    private static boolean slotManagerSetCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
+        String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set (sound|message) <arguments...>");
+        String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
+        if (cs.hasPermission("ne.slotmanager.set.message.own") || cs.hasPermission("ne.slotmanager.set.message.other")
+                || cs.hasPermission("ne.slotmanager.set.sound.own") || cs.hasPermission("ne.slotmanager.set.sound.other")) {
+            if (args.length == 0) { cs.sendMessage(helpText); } else {
+                String[] newArgs = new String[args.length-1];
+                for (int pos = 1; pos < args.length; pos++)
+                    newArgs[pos-1] = args[pos];
+                if (args[0].equalsIgnoreCase("sound")) {
+                    return slotManagerSetSoundCommand(cs,cmnd,alias,newArgs);
+                } else if (args[0].equalsIgnoreCase("message")) {
+                    return slotManagerSetMessageCommand(cs,cmnd,alias,newArgs);
+                } else { cs.sendMessage(helpText); }
+            }
+        } else { cs.sendMessage(permText); }
+        return false;
+    }
 
+    private static boolean slotManagerSetSoundCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
+        String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set sound <player|url> <arguments...>");
+        String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
+        if (cs.hasPermission("ne.slotmanager.set.sound.own") || cs.hasPermission("ne.slotmanager.set.sound.other")) {
+            if (args.length == 1) {
+                return slotManagerSetSoundOwnCommand(cs,cmnd,alias,args);
+            } else if (args.length >= 2) {
+                return slotManagerSetSoundOtherCommand(cs,cmnd,alias,args);
+            } else { cs.sendMessage(helpText); }
+        } else { cs.sendMessage(permText); }
+        return false;
+    }
+
+    private static boolean slotManagerSetSoundOwnCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
+        String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set sound <url>");
+        String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
+        String failText = util.colorize(prefixMsg+"&cYou are not a player.");
+        if (cs.hasPermission("ne.slotmanager.set.sound.own")) {
+            if (cs instanceof Player) {
+                if (args.length == 0) { cs.sendMessage(helpText); } else {
+                    NullEssentials.config.setProperty("slotmanager.join."+((Player)cs).getName()+".sound", args[0]);
+                    NullEssentials.config.save();
+                    return true;
+                }
+            } else { cs.sendMessage(failText); }
+        } else { cs.sendMessage(permText); }
+        return false;
+    }
+
+    private static boolean slotManagerSetSoundOtherCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
+        String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set sound <player> <url>");
+        String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
+        String failText = util.colorize(prefixMsg+"&cCould not find Player.");
+        if (cs.hasPermission("ne.slotmanager.set.sound.other")) {
+            if (args.length <= 1) { cs.sendMessage(helpText); } else {
+                NullEssentials.config.setProperty("slotmanager.join."+args[0]+".sound", args[1]);
+                NullEssentials.config.save();
+                return true;
+            }
+        } else { cs.sendMessage(permText); }
+        return false;
+    }
+
+    private static boolean slotManagerSetMessageCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
+        String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set message <player|text> <arguments...>");
+        String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
+        if (cs.hasPermission("ne.slotmanager.set.message.own") || cs.hasPermission("ne.slotmanager.set.message.other")) {
+            if (args.length == 1) {
+                return slotManagerSetMessageOwnCommand(cs,cmnd,alias,args);
+            } else if (args.length >= 2) {
+                return slotManagerSetMessageOtherCommand(cs,cmnd,alias,args);
+            } else { cs.sendMessage(helpText); }
+        } else { cs.sendMessage(permText); }
+        return false;
+    }
+
+    private static boolean slotManagerSetMessageOwnCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
+        String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set message <text>");
+        String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
+        String failText = util.colorize(prefixMsg+"&cYou are not a player.");
+        if (cs.hasPermission("ne.slotmanager.set.message.own")) {
+            if (cs instanceof Player) {
+                if (args.length == 0) { cs.sendMessage(helpText); } else {
+                    NullEssentials.config.setProperty("slotmanager.join."+((Player)cs).getName()+".message", args[0]);
+                    NullEssentials.config.save();
+                    return true;
+                }
+            } else { cs.sendMessage(failText); }
+        } else { cs.sendMessage(permText); }
+        return false;
+    }
+
+    private static boolean slotManagerSetMessageOtherCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
+        String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set message <player> <text>");
+        String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
+        String failText = util.colorize(prefixMsg+"&cCould not find Player.");
+        if (cs.hasPermission("ne.slotmanager.set.message.other")) {
+            if (args.length <= 1) { cs.sendMessage(helpText); } else {
+                NullEssentials.config.setProperty("slotmanager.join."+args[0]+".message", args[1]);
+                NullEssentials.config.save();
+                return true;
+            }
+        } else { cs.sendMessage(permText); }
+        return false;
+    }
 }
