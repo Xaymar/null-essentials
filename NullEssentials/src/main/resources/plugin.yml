@@ -15,6 +15,13 @@ permissions:
       ne.parts: true
       ne.parts.*: true
       ne.slotmanager.*: true
+  ne.parts.*:
+    default: op
+    description: Grants all parts permissions
+    children:
+      ne.parts.enable: true
+      ne.parts.disable: true
+      ne.parts.reload: true
   ne.slotmanager.*:
     default: op
     description: Grants all slotmanager part nodes

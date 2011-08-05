@@ -148,7 +148,7 @@ public class NullEssentials extends JavaPlugin {
     private static boolean nullPartsEnableCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" parts enable (part)");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
-        if (cs.hasPermission("ne.parts.enable")) {
+        if (cs.hasPermission("ne.parts.state")) {
             if (args.length == 0) { cs.sendMessage(helpText); } else {
                 if (args[0].equalsIgnoreCase("slotmanager")) {
                     if (cs.hasPermission("ne.slotmanager.state")) {
@@ -171,7 +171,7 @@ public class NullEssentials extends JavaPlugin {
     private static boolean nullPartsDisableCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" parts disable (part)");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
-        if (cs.hasPermission("ne.parts.disable")) {
+        if (cs.hasPermission("ne.parts.state")) {
             if (args.length == 0) { cs.sendMessage(helpText); } else {
                 if (args[0].equalsIgnoreCase("slotmanager")) {
                     if (cs.hasPermission("ne.slotmanager.state")) {
