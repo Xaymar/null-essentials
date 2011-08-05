@@ -25,3 +25,6 @@ Since we cannot just grant everyone the right to do everything, here are the Per
 || ne.parts.state || /ne parts <enable|disable> || ne.parts.`*`, ne.`*` ||
 || ne.parts.reload || /ne parts reload || ne.parts.`*`, ne.`*` ||
 || ne.slotmanager || - || ne.`*` ||
+
+For individual Part Configuration see their corresponding pages:
+  * [http://code.google.com/p/null-essentials/wiki/Configuration_SlotManager Slot Manager]
