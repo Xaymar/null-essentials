@@ -38,10 +38,8 @@ public class SlotManagerSpoutListener extends SpoutListener {
         if (NullEssentials.enableSlotManager == true) {
             if (event.getPlayer().hasPermission("ne.slotmanager.sound")) {
                 String strSound = NullEssentials.config.getString("slotmanager.join."+event.getPlayer().getName()+".sound", "");
-                if (NullEssentials.enableSpout) {
-                    if (!strSound.equals("")) {
-                        SpoutManager.getSoundManager().playGlobalCustomSoundEffect(NullEssentials.plugin, strSound, false);
-                    }
+                if (!strSound.equals("")) {
+                    SpoutManager.getSoundManager().playGlobalCustomSoundEffect(NullEssentials.plugin, strSound, false);
                 }
             }
         }
