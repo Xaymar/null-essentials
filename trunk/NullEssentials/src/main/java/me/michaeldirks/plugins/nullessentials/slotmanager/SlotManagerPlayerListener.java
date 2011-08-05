@@ -71,7 +71,7 @@ public class SlotManagerPlayerListener extends PlayerListener {
                         event.setResult(PlayerLoginEvent.Result.KICK_FULL);
                         event.setKickMessage("No reserved slots left!");
                     } else {
-                        LinkedList<Player> kickList = new LinkedList<>();
+                        LinkedList<Player> kickList = new LinkedList<Player>();
                         Random randomGen = new Random( System.currentTimeMillis() );
                         for (Player player : NullEssentials.server.getOnlinePlayers()) {
                             if ((!player.hasPermission("ne.slotmanager.reserved")) && (player != event.getPlayer())) {

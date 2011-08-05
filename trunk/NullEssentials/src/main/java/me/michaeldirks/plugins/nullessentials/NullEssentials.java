@@ -1,6 +1,5 @@
 package me.michaeldirks.plugins.nullessentials;
 
-import com.avaje.ebean.EbeanServer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,7 +26,6 @@ public class NullEssentials extends JavaPlugin {
     public static Logger log = null;
     public static String prefixStd = "[NE]";
     public static String prefixMsg = "&6[NE]";
-    public static boolean enableSpout = false;
     public static boolean enableSlotManager = false;
     public static boolean firstRun = true;
     public static boolean lastRun = false;
@@ -58,14 +56,15 @@ public class NullEssentials extends JavaPlugin {
         File configFile = new File(plugin.getDataFolder().getPath()+"/config.yml");
         if (configFile.exists() == false) {
             log.log(Level.INFO, plugin.getFile().getPath());
-            try (JarFile pluginFile = new JarFile(plugin.getFile())) {
+            try {
+                JarFile pluginFile = new JarFile(plugin.getFile());
                 ZipEntry configZip = pluginFile.getEntry("config.yml");
-                try (FileOutputStream configOut = new FileOutputStream(plugin.getDataFolder().getPath()+"/config.yml"); InputStream configIn = pluginFile.getInputStream(configZip)) {
-                    for (int c = configIn.read(); c!= -1; c = configIn.read()) {
-                        configOut.write(c);
-                    }
-                    log.log(Level.CONFIG, prefixStd+"Unzipped config.yml, please close the server and configure needed settings!");
+                FileOutputStream configOut = new FileOutputStream(plugin.getDataFolder().getPath()+"/config.yml");
+                InputStream configIn = pluginFile.getInputStream(configZip);
+                for (int c = configIn.read(); c!= -1; c = configIn.read()) {
+                    configOut.write(c);
                 }
+                log.log(Level.CONFIG, prefixStd+"Unzipped config.yml, please close the server and configure needed settings!");
             } catch (IOException ex) {
                 log.log(Level.SEVERE, prefixStd+"Unable to unzip config.yml from plugin, manual unzip required.");
             }
@@ -73,9 +72,6 @@ public class NullEssentials extends JavaPlugin {
         
         config = this.getConfiguration();
         config.load();
-        
-        enableSpout = (server.getPluginManager().getPlugin("Spout") != null);
-        if (enableSpout == true) log.log(Level.INFO, prefixStd+"Spout is installed! Continuing happily.");
         
         //Find enabled parts
         enableSlotManager = config.getBoolean("parts.slotmanager", false);
