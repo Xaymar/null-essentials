@@ -47,11 +47,11 @@ The fields message and sound can be omitted or left empty, in that case the play
 || ne.slotmanager.reserved || Access to reserved slots || ne.slotmanager.*, ne.* ||
 || ne.slotmanager.sound || Allow user to have a custom join message || ne.slotmanager.`*`, ne.`*` ||
 || ne.slotmanager.message || Allow user to have a custom join sound || ne.slotmanager.`*`, ne.`*` ||
-|| ne.slotmanager.set.sound.own || /ne slotmanager set sound <url> || ne.slotmanager.set.sound.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
-|| ne.slotmanager.set.sound.other || /ne slotmanager set sound <player> <url> || ne.slotmanager.set.sound.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.set.sound.own || /ne slotmanager set sound `<`url`>` || ne.slotmanager.set.sound.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.set.sound.other || /ne slotmanager set sound `<`player`>` `<`url`>` || ne.slotmanager.set.sound.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
 || ne.slotmanager.get.sound.own || /ne slotmanager get sound || ne.slotmanager.get.sound.`*`, ne.slotmanager.get.`*`, ne.slotmanager.`*`, ne.`*` ||
-|| ne.slotmanager.get.sound.other || /ne slotmanager get sound <player>|| ne.slotmanager.get.sound.`*`, ne.slotmanager.get.`*`, ne.slotmanager.`*`, ne.`*` ||
-|| ne.slotmanager.set.message.own || /ne slotmanager set message <text> || ne.slotmanager.set.message.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
-|| ne.slotmanager.set.message.other || /ne slotmanager set message <player> <text> || ne.slotmanager.set.message.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.get.sound.other || /ne slotmanager get sound `<`player`>` || ne.slotmanager.get.sound.`*`, ne.slotmanager.get.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.set.message.own || /ne slotmanager set message `<`text`>` || ne.slotmanager.set.message.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.set.message.other || /ne slotmanager set message `<`player`>` `<`text`>` || ne.slotmanager.set.message.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
 || ne.slotmanager.get.message.own || /ne slotmanager get message || ne.slotmanager.get.message.`*`, ne.slotmanager.get.`*`, ne.slotmanager.`*`, ne.`*` ||
-|| ne.slotmanager.get.message.other || /ne slotmanager get message <player>|| ne.slotmanager.get.message.`*`, ne.slotmanager.get.`*`, ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.get.message.other || /ne slotmanager get message `<`player`>` || ne.slotmanager.get.message.`*`, ne.slotmanager.get.`*`, ne.slotmanager.`*`, ne.`*` ||
