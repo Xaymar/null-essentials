@@ -9,16 +9,41 @@ import me.michaeldirks.plugins.nullessentials.util.util;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.config.Configuration;
 
 /**
  *
  * @author Xaymar
  */
-public class SlotManagerCommands {
-    private static String prefixStd = NullEssentials.prefixStd+"[SM]";
-    private static String prefixMsg = NullEssentials.prefixMsg+"[SM]";
+public class SlotManager {
+    public static String prefixStd = NullEssentials.prefixStd+"[SM]";
+    public static String prefixMsg = NullEssentials.prefixMsg+"[SM]";
+    private static smPlayerListener playerListener = new smPlayerListener();
+    private static smSpoutListener spoutListener = new smSpoutListener();
     
-    public static boolean slotManagerCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
+    
+    
+    public void onEnable() {
+        if (NullEssentials.enableSlotManager == true) {
+            playerListener.onEnable();
+            spoutListener.onEnable();
+        }
+    }
+    public void onDisable() {
+        if (NullEssentials.enablePlayerList == true) {
+            playerListener.onDisable();
+            spoutListener.onDisable();
+        }
+    }
+    
+    public void readConfig(Configuration config) {
+        
+    }
+    
+    public boolean onCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
+        if (NullEssentials.enableSlotManager == false)
+            return false;
+        
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager (set|get) <arguments...>");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
         if (args.length == 0) { cs.sendMessage(helpText); } else {
@@ -52,7 +77,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-    
     private static boolean slotManagerGetSoundCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager get sound <player>");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
@@ -65,7 +89,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-
     private static boolean slotManagerGetSoundOwnCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager get sound");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
@@ -78,7 +101,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-
     private static boolean slotManagerGetSoundOtherCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager get sound <player>");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
@@ -91,7 +113,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-    
     private static boolean slotManagerGetMessageCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager get message <player>");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
@@ -104,7 +125,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-
     private static boolean slotManagerGetMessageOwnCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager get message");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
@@ -117,7 +137,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-
     private static boolean slotManagerGetMessageOtherCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager get message <player>");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
@@ -149,7 +168,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-
     private static boolean slotManagerSetSoundCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set sound <player|url> <arguments...>");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
@@ -162,7 +180,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-
     private static boolean slotManagerSetSoundOwnCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set sound <url>");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
@@ -178,7 +195,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-
     private static boolean slotManagerSetSoundOtherCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set sound <player> <url>");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
@@ -192,7 +208,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-
     private static boolean slotManagerSetMessageCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set message <player|text> <arguments...>");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
@@ -205,7 +220,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-
     private static boolean slotManagerSetMessageOwnCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set message <text>");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");
@@ -221,7 +235,6 @@ public class SlotManagerCommands {
         } else { cs.sendMessage(permText); }
         return false;
     }
-
     private static boolean slotManagerSetMessageOtherCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = util.colorize(prefixMsg+"/"+alias+" slotmanager set message <player> <text>");
         String permText = util.colorize(prefixMsg+"&cYou do not have permission to do that.");

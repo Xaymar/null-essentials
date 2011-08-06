@@ -4,7 +4,7 @@ description: "Provides an all-in-one approach for server hosters. Easy setup and
 main: me.michaeldirks.plugins.nullessentials.NullEssentials
 name: NullEssentials
 startup: postworld
-softdepend: [Spout]
+depend: [Spout]
 url: http://levelnull.de/
 version: '0.3'
 permissions:
