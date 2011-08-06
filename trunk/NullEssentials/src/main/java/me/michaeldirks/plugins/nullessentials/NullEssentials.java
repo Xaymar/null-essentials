@@ -22,7 +22,6 @@ public class NullEssentials extends JavaPlugin {
     public static Server server = null;
     public static Configuration config = null;
     public static Logger log = null;
-    public static boolean debug = false;
     //Outgoing messages
     public static String prefixStd = "[NE]";
     public static String prefixMsg = "&6[NE]";
@@ -58,14 +57,14 @@ public class NullEssentials extends JavaPlugin {
 
     //Configuration Handling
     public void readConfig() {
-        File configFile = new File(NullEssentials.plugin.getDataFolder()+"/config.yml");
+        File configFile = new File(NullEssentials.plugin.getDataFolder() + "/config.yml");
         if (!configFile.exists()) {
             try {
                 JarFile pluginJar = pluginJar = new JarFile(NullEssentials.plugin.getFile());
                 ZipEntry jarConfig = pluginJar.getEntry("config.yml");
-                FileOutputStream fileOut = new FileOutputStream(NullEssentials.plugin.getDataFolder()+"/config.yml");
+                FileOutputStream fileOut = new FileOutputStream(NullEssentials.plugin.getDataFolder() + "/config.yml");
                 InputStream fileIn = pluginJar.getInputStream(jarConfig);
-                while(fileIn.available() > 0) {
+                while (fileIn.available() > 0) {
                     fileOut.write(fileIn.read());
                 }
                 fileIn.close();
@@ -75,15 +74,15 @@ public class NullEssentials extends JavaPlugin {
                 Logger.getLogger(NullEssentials.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         config.load();
-        
+
         enableSlotManager = config.getBoolean("parts.slotmanager", false);
         enablePlayerList = config.getBoolean("parts.playerlist", false);
-        
+
         partSlotManager.readConfig(config);
         partPlayerList.readConfig(config);
-        
+
         config.save();
     }
 
@@ -97,7 +96,7 @@ public class NullEssentials extends JavaPlugin {
         String helpText = prefixMsg + "/" + alias + " (parts|slotmanager) <arguments...>";
 
         args = util.reparseArgs(args);
-        System.out.println(util.arrayCombine(args," "));
+        System.out.println(util.arrayCombine(args, " "));
 
         if (args.length == 0) {
             util.sendMessage(cs, helpText);
@@ -123,8 +122,8 @@ public class NullEssentials extends JavaPlugin {
         if (cs.hasPermission("ne.parts")) {
             if (args.length == 0) {
                 String parts = prefixMsg + "Parts: ";
-                parts += (enableSlotManager == true?"&2":"&4")+"Slot Manager" + "&6, ";
-                parts += (enablePlayerList == true?"&2":"&4")+"Player List" + "&6, ";
+                parts += (enableSlotManager == true ? "&2" : "&4") + "Slot Manager" + "&6, ";
+                parts += (enablePlayerList == true ? "&2" : "&4") + "Player List" + "&6, ";
                 util.sendMessage(cs, parts);
                 return true;
             } else {
