@@ -41,8 +41,8 @@ slotmanager:
 
 == Permissions ==
 || Node || For || Parents ||
-|| ne.slotmanager.state || /ne parts <enable|disable> slotmanager || ne.slotmanager.*, ne.* ||
-|| ne.slotmanager.reserved || Access to reserved slots || ne.slotmanager.*, ne.* ||
+|| ne.slotmanager.state || /ne parts <enable|disable> slotmanager || ne.slotmanager.`*`, ne.`*` ||
+|| ne.slotmanager.reserved || Access to reserved slots || ne.slotmanager.`*`, ne.`*` ||
 || ne.slotmanager.message || Allow user to have a custom join message || ne.slotmanager.`*`, ne.`*` ||
 || ne.slotmanager.sound || Allow user to have a custom join sound || ne.slotmanager.`*`, ne.`*` ||
 || ne.slotmanager.set.sound.own || /ne slotmanager set sound `<`url`>` || ne.slotmanager.set.sound.`*`, ne.slotmanager.set.`*`, ne.slotmanager.`*`, ne.`*` ||
