@@ -12,10 +12,12 @@ import org.bukkit.util.config.Configuration;
  * @author Xaymar
  */
 public class PlayerList {
+
     public void onEnable() {
         if (NullEssentials.enablePlayerList == true) {
         }
     }
+
     public void onDisable() {
         if (NullEssentials.enablePlayerList == true) {
         }

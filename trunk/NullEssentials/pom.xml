@@ -27,6 +27,7 @@
                     <source>1.6</source>
                     <target>1.6</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <debug>false</debug>
                 </configuration>
             </plugin>
             <plugin>
@@ -61,7 +62,7 @@
     </dependencies>
     <artifactId>NullEssentials</artifactId>
     <name>Null Essentials</name>
-    <version>0.3.2</version>
+    <version>0.4</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

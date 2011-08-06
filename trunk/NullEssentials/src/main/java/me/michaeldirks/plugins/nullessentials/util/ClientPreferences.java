@@ -9,5 +9,4 @@ package me.michaeldirks.plugins.nullessentials.util;
  * @author Xaymar
  */
 public class ClientPreferences {
-    
 }
