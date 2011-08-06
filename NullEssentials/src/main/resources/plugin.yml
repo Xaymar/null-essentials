@@ -6,7 +6,7 @@ name: NullEssentials
 startup: postworld
 depend: [Spout]
 url: http://levelnull.de/
-version: '0.3'
+version: '0.4'
 permissions:
   ne.*:
     default: op
