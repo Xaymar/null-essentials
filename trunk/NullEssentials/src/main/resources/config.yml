@@ -1,7 +1,9 @@
 parts:
   #Should Slot Manager be enabled?(Reserved Slots, Joinmessage and -sound)
   slotmanager: true 
-
+  #Enable classic-style Playerlist?
+  playerlist: true
+  
 #Slot Manager Configuration
 slotmanager:
   reserved:
@@ -18,3 +20,4 @@ slotmanager:
     #Xaymar:
     #  message: 'This is a text.'
     #  sound: http://example.com/404.ogg
+    #Both message & sound fields can be omitted or left empty, in that case the user will not have the omitted.

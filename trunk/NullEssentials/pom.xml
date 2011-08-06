@@ -1,3 +1,4 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.michaeldirks.plugins.nullessentials</groupId>
@@ -5,7 +6,15 @@
     <repositories>
         <repository>
             <id>bukkit-repo</id>
-            <url>http://repo.bukkit.org/artifactory/repo</url>
+            <name>bukkit Plugin API</name>
+            <url>http://repo.bukkit.org/artifactory/repo/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>spout-repo</id>
+            <name>Spout API</name>
+            <url>http://repo.getspout.org/</url>
+            <layout>default</layout>
         </repository>
     </repositories>
     <build>
@@ -32,13 +41,6 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.avaje</groupId>
             <artifactId>ebean</artifactId>
             <version>2.7.3</version>
@@ -47,15 +49,19 @@
         </dependency>
         <dependency>
             <groupId>org.getspout</groupId>
-            <artifactId>getspout</artifactId>
-            <version>1.0.1</version>
-            <type>jar</type>
+            <artifactId>spoutapi</artifactId>
+            <version>dev-SNAPSHOT</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <artifactId>NullEssentials</artifactId>
     <name>Null Essentials</name>
-    <version>0.3.1</version>
+    <version>0.3.2</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

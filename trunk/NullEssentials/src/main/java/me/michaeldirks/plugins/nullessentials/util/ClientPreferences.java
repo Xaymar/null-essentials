@@ -8,6 +8,6 @@ package me.michaeldirks.plugins.nullessentials.util;
  *
  * @author Xaymar
  */
-public class clientprefs {
+public class ClientPreferences {
     
 }
