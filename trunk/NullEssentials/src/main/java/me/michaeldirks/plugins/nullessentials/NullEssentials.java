@@ -15,6 +15,9 @@ import org.bukkit.Server;
 import org.bukkit.command.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.config.Configuration;
+import com.nijiko.permissions.PermissionHandler;
+import com.nijikokun.bukkit.Permissions.Permissions;
+import org.bukkit.plugin.Plugin;
 
 public class NullEssentials extends JavaPlugin {
 
@@ -25,6 +28,8 @@ public class NullEssentials extends JavaPlugin {
     //Outgoing messages
     public static String prefixStd = "[NE]";
     public static String prefixMsg = "&6[NE]";
+    //Permissions
+    public static PermissionHandler pHandler;
     //Part: Slot Manager
     public static boolean enableSlotManager = false;
     public static SlotManager partSlotManager = new SlotManager();
@@ -39,6 +44,9 @@ public class NullEssentials extends JavaPlugin {
         log = server.getLogger();
         config = this.getConfiguration();
 
+        setupPermissions();
+
+        //Read Configuration
         readConfig();
 
         partSlotManager.onEnable();
@@ -70,6 +78,9 @@ public class NullEssentials extends JavaPlugin {
                 fileIn.close();
                 fileOut.close();
                 pluginJar.close();
+                fileIn = null;
+                fileOut = null;
+                pluginJar = null;
             } catch (IOException ex) {
                 Logger.getLogger(NullEssentials.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -96,8 +107,7 @@ public class NullEssentials extends JavaPlugin {
         String helpText = prefixMsg + "/" + alias + " (parts|slotmanager) <arguments...>";
 
         args = util.reparseArgs(args);
-        System.out.println(util.arrayCombine(args, " "));
-
+        
         if (args.length == 0) {
             util.sendMessage(cs, helpText);
         } else {
@@ -119,7 +129,7 @@ public class NullEssentials extends JavaPlugin {
     private boolean nullPartsCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = prefixMsg + "/" + alias + " parts <enable|disable|reload> <arguments...>";
         String permText = prefixMsg + "&cYou do not have permission to do that.";
-        if (cs.hasPermission("ne.parts")) {
+        if (util.hasPermission(cs, "ne.parts")) {
             if (args.length == 0) {
                 String parts = prefixMsg + "Parts: ";
                 parts += (enableSlotManager == true ? "&2" : "&4") + "Slot Manager" + "&6, ";
@@ -150,12 +160,12 @@ public class NullEssentials extends JavaPlugin {
     private boolean nullPartsEnableCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = prefixMsg + "/" + alias + " parts enable (part)";
         String permText = prefixMsg + "&cYou do not have permission to do that.";
-        if (cs.hasPermission("ne.parts.state")) {
+        if (util.hasPermission(cs, "ne.parts.state")) {
             if (args.length == 0) {
                 util.sendMessage(cs, helpText);
             } else {
                 if (args[0].equalsIgnoreCase("slotmanager")) {
-                    if (cs.hasPermission("ne.slotmanager.state")) {
+                    if (util.hasPermission(cs, "ne.slotmanager.state")) {
                         enableSlotManager = true;
                         partSlotManager.onEnable();
                         util.sendMessage(cs, prefixMsg + "Slot Manager enabled.");
@@ -176,12 +186,12 @@ public class NullEssentials extends JavaPlugin {
     private boolean nullPartsDisableCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String helpText = prefixMsg + "/" + alias + " parts disable (part)";
         String permText = prefixMsg + "&cYou do not have permission to do that.";
-        if (cs.hasPermission("ne.parts.state")) {
+        if (util.hasPermission(cs, "ne.parts.state")) {
             if (args.length == 0) {
                 util.sendMessage(cs, helpText);
             } else {
                 if (args[0].equalsIgnoreCase("slotmanager")) {
-                    if (cs.hasPermission("ne.slotmanager.state")) {
+                    if (util.hasPermission(cs, "ne.slotmanager.state")) {
                         partSlotManager.onDisable();
                         enableSlotManager = false;
                         util.sendMessage(cs, prefixMsg + "Slot Manager disabled.");
@@ -201,7 +211,7 @@ public class NullEssentials extends JavaPlugin {
 
     private boolean nullPartsReloadCommand(CommandSender cs, Command cmnd, String alias, String[] args) {
         String permText = prefixMsg + "&cYou do not have permission to do that.";
-        if (cs.hasPermission("ne.parts.reload")) {
+        if (util.hasPermission(cs, "ne.parts.reload")) {
             util.sendMessage(cs, prefixMsg + "Disabling parts...");
             partSlotManager.onDisable();
             partPlayerList.onDisable();
@@ -216,5 +226,20 @@ public class NullEssentials extends JavaPlugin {
             util.sendMessage(cs, permText);
         }
         return false;
+    }
+
+    private void setupPermissions() {
+        if (pHandler != null) {
+            return;
+        } else {
+            Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
+            if (permissionsPlugin == null) {
+                log.log(Level.INFO, prefixStd + "Using SuperPermissions");
+                return;
+            } else {
+                pHandler = ((Permissions) permissionsPlugin).getHandler();
+                log.log(Level.INFO, prefixStd + "Using " + ((Permissions) permissionsPlugin).getDescription().getFullName());
+            }
+        }
     }
 }
