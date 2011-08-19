@@ -36,7 +36,7 @@ public class util {
     }
 
     public static String colorize(String On) {
-        return On.replaceAll("(&([A-Fa-f0-9]))", "\u00A7$2");
+        return On.replaceAll("([^&])(&([a-fA-F0-9]))", "$1\u00A7$3").replace("&&","&");
     }
 
     public static String parsePlayer(String On, Player plr) {
@@ -147,7 +147,7 @@ public class util {
                     }
                 }
             }
-            newArgs.add(toAdd);
+            if (!"".equals(toAdd)) newArgs.add(toAdd);
         }
         String[] strArgs = new String[newArgs.size()];
         for (int i = 0; i < newArgs.size(); i++) {
@@ -171,5 +171,21 @@ public class util {
             }
         }
         return out;
+    }
+    
+    public static boolean hasPermission(CommandSender cs, String node) {
+        if (NullEssentials.pHandler != null) {
+            //Use Permissions
+            if (cs instanceof Player) {
+                return NullEssentials.pHandler.has(((Player)cs).getWorld().getName(), ((Player)cs).getName(), node);
+            } else if (cs instanceof Server) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            //Use SuperPermissions
+            return cs.hasPermission(node);
+        }
     }
 }
